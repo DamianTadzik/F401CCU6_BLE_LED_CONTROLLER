@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "ssd1306.h"
 
+#include "my_plot.h"
 
 typedef struct menu_t{
 	const char* name;				/* Name stored in flash */
