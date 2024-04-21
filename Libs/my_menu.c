@@ -229,10 +229,10 @@ void menu_next(void)
 	_tick_reset();
 	if (menu_data_edit_mode == _m_get_mode())
 	{
-		if ((*(menu_current_ptr->data->data) + menu_current_ptr->data->delta_per_step)
-				<= (menu_current_ptr->data->upper_bound))
+		if ((*(menu_current_ptr->data->data) - menu_current_ptr->data->delta_per_step)
+				>= (menu_current_ptr->data->lower_bound))
 		{
-			*(menu_current_ptr->data->data) += (menu_current_ptr->data->delta_per_step);
+			*(menu_current_ptr->data->data) -= (menu_current_ptr->data->delta_per_step);
 		}
 	}
 	else if (menu_browse_mode == _m_get_mode() && menu_current_ptr->next)
@@ -258,10 +258,10 @@ void menu_prev(void)
 	_tick_reset();
 	if (menu_data_edit_mode == _m_get_mode())
 	{
-		if ((*(menu_current_ptr->data->data) - menu_current_ptr->data->delta_per_step)
-				>= (menu_current_ptr->data->lower_bound))
+		if ((*(menu_current_ptr->data->data) + menu_current_ptr->data->delta_per_step)
+				<= (menu_current_ptr->data->upper_bound))
 		{
-			*(menu_current_ptr->data->data) -= menu_current_ptr->data->delta_per_step;
+			*(menu_current_ptr->data->data) += menu_current_ptr->data->delta_per_step;
 		}
 	}
 	else if (menu_browse_mode == _m_get_mode() && menu_current_ptr->prev)
@@ -393,7 +393,6 @@ void menu_enter(void)
 			btm_line_ptr = &NONE_MENU;
 		}
 	}
-	// FIXME zbugowane jest troche wychodzi zawsze na wyzsze menu niz chce ;/
 	if (menu_current_ptr->function)
 	{
 		/* Run a function */
