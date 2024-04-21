@@ -17,6 +17,8 @@ extern menu_t EEM1, EEM2, EEM3;
 
 extern m_data_t D_E, D_ATC;
 
+m_data_t D1, D2, D3;
+
 //extern void send_AT_command(void);
 
 // TODO update menu init fucntion so MM2 MM3 and MM1 are not used xd

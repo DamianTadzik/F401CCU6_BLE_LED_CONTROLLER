@@ -171,6 +171,8 @@ void ssd1306_DrawRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, SSD13
 void ssd1306_FillRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, SSD1306_COLOR color);
 void ssd1306_DrawBitmap(uint8_t x, uint8_t y, const unsigned char* bitmap, uint8_t w, uint8_t h, SSD1306_COLOR color);
 
+void my_ssd1306_DrawPointer(uint8_t x, uint8_t y, SSD1306_COLOR fill);
+
 /**
  * @brief Sets the contrast of the display.
  * @param[in] value contrast to set.

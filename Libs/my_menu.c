@@ -22,39 +22,38 @@ static menu_t NONE_MENU = {"----NONE----", NULL, NULL, NULL, NULL, NULL}; /* Def
 static menu_t *menu_current_ptr;		/* Global static current menu_t pointer */
 static uint8_t cursor_position;			/* Global static cursor position */
 
-// TODO parametrize below functions with x y1 y2 y3 and so on!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// todo in order to move them lower and incerase menu size ;)
-
 /* Menu lines coordinates x y and square size d*/
-static const uint8_t _x = 0, _y = 20, d = 5;
-static const uint8_t _y_top = 1, _y_mid = 12, _y_mdl = 23, _y_btm = 34;
+static const uint8_t _x = 0, _y = 18;
+static const uint8_t _y_top = 0, _y_mid = 12, _y_mdl = 24, _y_btm = 36;
 static void _my_draw_cursor(void)
 {
-	ssd1306_FillRectangle(_x, _y+_y_top, _x+d, _y+_y_btm+d, White);
-	switch (cursor_position) {
+	switch (cursor_position)
+	{
 	case 0:
-		ssd1306_FillRectangle(_x, _y+_y_top, _x+d, _y+_y_top+d, Black);
-		ssd1306_DrawRectangle(_x, _y+_y_mid, _x+d, _y+_y_mid+d, Black);
-		ssd1306_DrawRectangle(_x, _y+_y_mdl, _x+d, _y+_y_mdl+d, Black);
-		ssd1306_DrawRectangle(_x, _y+_y_btm, _x+d, _y+_y_btm+d, Black);
+		my_ssd1306_DrawPointer(_x, _y+_y_top, Black);
+		my_ssd1306_DrawPointer(_x, _y+_y_mid, White);
+		my_ssd1306_DrawPointer(_x, _y+_y_mdl, White);
+		my_ssd1306_DrawPointer(_x, _y+_y_btm, White);
 		break;
 	case 1:
-		ssd1306_DrawRectangle(_x, _y+_y_top, _x+d, _y+_y_top+d, Black);
-		ssd1306_FillRectangle(_x, _y+_y_mid, _x+d, _y+_y_mid+d, Black);
-		ssd1306_DrawRectangle(_x, _y+_y_mdl, _x+d, _y+_y_mdl+d, Black);
-		ssd1306_DrawRectangle(_x, _y+_y_btm, _x+d, _y+_y_btm+d, Black);
+		my_ssd1306_DrawPointer(_x, _y+_y_top, White);
+		my_ssd1306_DrawPointer(_x, _y+_y_mid, Black);
+		my_ssd1306_DrawPointer(_x, _y+_y_mdl, White);
+		my_ssd1306_DrawPointer(_x, _y+_y_btm, White);
 		break;
 	case 2:
-		ssd1306_DrawRectangle(_x, _y+_y_top, _x+d, _y+_y_top+d, Black);
-		ssd1306_DrawRectangle(_x, _y+_y_mid, _x+d, _y+_y_mid+d, Black);
-		ssd1306_FillRectangle(_x, _y+_y_mdl, _x+d, _y+_y_mdl+d, Black);
-		ssd1306_DrawRectangle(_x, _y+_y_btm, _x+d, _y+_y_btm+d, Black);
+		my_ssd1306_DrawPointer(_x, _y+_y_top, White);
+		my_ssd1306_DrawPointer(_x, _y+_y_mid, White);
+		my_ssd1306_DrawPointer(_x, _y+_y_mdl, Black);
+		my_ssd1306_DrawPointer(_x, _y+_y_btm, White);
 		break;
 	case 3:
-		ssd1306_DrawRectangle(_x, _y+_y_top, _x+d, _y+_y_top+d, Black);
-		ssd1306_DrawRectangle(_x, _y+_y_mid, _x+d, _y+_y_mid+d, Black);
-		ssd1306_DrawRectangle(_x, _y+_y_mdl, _x+d, _y+_y_mdl+d, Black);
-		ssd1306_FillRectangle(_x, _y+_y_btm, _x+d, _y+_y_btm+d, Black);
+		my_ssd1306_DrawPointer(_x, _y+_y_top, White);
+		my_ssd1306_DrawPointer(_x, _y+_y_mid, White);
+		my_ssd1306_DrawPointer(_x, _y+_y_mdl, White);
+		my_ssd1306_DrawPointer(_x, _y+_y_btm, Black);
+		break;
+	default:
 		break;
 	}
 }
@@ -66,22 +65,22 @@ static menu_t *btm_line_ptr;
 
 static void _my_draw_menu(void)
 {
-	/* Clear text from the screen */	//_x+8??
-	ssd1306_FillRectangle(_x+7, _y, 127, _y+41, White);
+//	/* Clear text from the screen */	//_x+8??
+//	ssd1306_FillRectangle(_x+7, _y, 127, _y+41, White);
 
-	ssd1306_SetCursor(_x+7, _y+0);
+	ssd1306_SetCursor(_x+7, _y+_y_top);
 	if (top_line_ptr) ssd1306_WriteString(top_line_ptr->name, Font_7x10, Black);
 	else ssd1306_WriteString("ERROR", Font_7x10, Black);
 
-	ssd1306_SetCursor(_x+7, _y+11);
+	ssd1306_SetCursor(_x+7, _y+_y_mid);
 	if (mid_line_ptr) ssd1306_WriteString(mid_line_ptr->name, Font_7x10, Black);
 	else ssd1306_WriteString("ERROR", Font_7x10, Black);
 
-	ssd1306_SetCursor(_x+7, _y+22);
+	ssd1306_SetCursor(_x+7, _y+_y_mdl);
 	if (mdl_line_ptr) ssd1306_WriteString(mdl_line_ptr->name, Font_7x10, Black);
 	else ssd1306_WriteString("ERROR", Font_7x10, Black);
 
-	ssd1306_SetCursor(_x+7, _y+33);
+	ssd1306_SetCursor(_x+7, _y+_y_btm);
 	if (btm_line_ptr) ssd1306_WriteString(btm_line_ptr->name, Font_7x10, Black);
 	else ssd1306_WriteString("ERROR", Font_7x10, Black);
 }
@@ -93,7 +92,7 @@ static void _my_draw_data(void)
 
 	if (top_line_ptr->data)
 	{
-		ssd1306_SetCursor(128 - 7 * characters, _y+0);
+		ssd1306_SetCursor(128 - 7 * characters, _y+_y_top);
 		if (top_line_ptr->data->aliases && top_line_ptr->data->aliases[*(top_line_ptr->data->data)])
 		{
 			sprintf(buf, "%s", top_line_ptr->data->aliases[*(top_line_ptr->data->data)]);
@@ -114,7 +113,7 @@ static void _my_draw_data(void)
 	}
 	if (mid_line_ptr->data)
 	{
-		ssd1306_SetCursor(128 - 7 * characters, _y+22);
+		ssd1306_SetCursor(128 - 7 * characters, _y+_y_mid);
 		if (mid_line_ptr->data->aliases && mid_line_ptr->data->aliases[*(mid_line_ptr->data->data)])
 		{
 			sprintf(buf, "%s", mid_line_ptr->data->aliases[*(mid_line_ptr->data->data)]);
@@ -135,7 +134,7 @@ static void _my_draw_data(void)
 	}
 	if (mdl_line_ptr->data)
 	{
-		ssd1306_SetCursor(128 - 7 * characters, _y+22);
+		ssd1306_SetCursor(128 - 7 * characters, _y+_y_mdl);
 		if (mdl_line_ptr->data->aliases && mdl_line_ptr->data->aliases[*(mdl_line_ptr->data->data)])
 		{
 			sprintf(buf, "%s", mdl_line_ptr->data->aliases[*(mdl_line_ptr->data->data)]);
@@ -156,7 +155,7 @@ static void _my_draw_data(void)
 	}
 	if (btm_line_ptr->data)
 	{
-		ssd1306_SetCursor(128 - 7 * characters, _y+33);
+		ssd1306_SetCursor(128 - 7 * characters, _y+_y_btm);
 		if (btm_line_ptr->data->aliases && btm_line_ptr->data->aliases[*(btm_line_ptr->data->data)])
 		{
 			sprintf(buf, "%s", btm_line_ptr->data->aliases[*(btm_line_ptr->data->data)]);
@@ -180,7 +179,6 @@ static void _my_draw_data(void)
 static void _my_plot(void)
 {
 	// TODO finish this plot and all
-	ssd1306_Fill(White);
 	plot_axes();
 }
 
@@ -248,6 +246,7 @@ void menu_next(void)
 		else if (cursor_position == max_menu_elements)
 		{
 			top_line_ptr = top_line_ptr->next;
+			mid_line_ptr = mid_line_ptr->next;
 			mdl_line_ptr = mdl_line_ptr->next;
 			btm_line_ptr = btm_line_ptr->next;
 		}
@@ -276,6 +275,7 @@ void menu_prev(void)
 		else if (cursor_position == min_menu_elements)
 		{
 			top_line_ptr = top_line_ptr->prev;
+			mid_line_ptr = mid_line_ptr->prev;
 			mdl_line_ptr = mdl_line_ptr->prev;
 			btm_line_ptr = btm_line_ptr->prev;
 		}
@@ -296,34 +296,61 @@ void menu_enter(void)
 	{
 		/* Goto specific menu, typically enter to menu or return from one */
 		menu_current_ptr = menu_current_ptr->go_to;
-
-		// FIXME zjebałeś damian, miałeś 3! konfiguracji a teraz masz 4! no to chuj ci w dupe pisz se 18 caseów
-		// Musi być na to jakiś myk cyk pyk
 		/* Display configuration */
 		if (menu_current_ptr->next)
 		{
 			if (menu_current_ptr->next->next)
 			{
-				// current element is top, next two exists
-				cursor_position = 0;
-				top_line_ptr = menu_current_ptr;
-				mdl_line_ptr = menu_current_ptr->next;
-				btm_line_ptr = menu_current_ptr->next->next;
+				if (menu_current_ptr->next->next->next)
+				{
+					cursor_position = 0;
+					top_line_ptr = menu_current_ptr;
+					mid_line_ptr = menu_current_ptr->next;
+					mdl_line_ptr = menu_current_ptr->next->next;
+					btm_line_ptr = menu_current_ptr->next->next->next;
+				}
+				else if (menu_current_ptr->prev)
+				{
+					cursor_position = 1;
+					top_line_ptr = menu_current_ptr->prev;
+					mid_line_ptr = menu_current_ptr;
+					mdl_line_ptr = menu_current_ptr->next;
+					btm_line_ptr = menu_current_ptr->next->next;
+				}
+				else
+				{
+					cursor_position = 0;
+					top_line_ptr = menu_current_ptr;
+					mid_line_ptr = menu_current_ptr->next;
+					mdl_line_ptr = menu_current_ptr->next->next;
+					btm_line_ptr = &NONE_MENU;
+				}
 			}
 			else if (menu_current_ptr->prev)
 			{
-				// current element is mdl, next and prev exists
-				cursor_position = 1;
-				top_line_ptr = menu_current_ptr->prev;
-				mdl_line_ptr = menu_current_ptr;
-				btm_line_ptr = menu_current_ptr->next;
+				if (menu_current_ptr->prev->prev)
+				{
+					cursor_position = 2;
+					top_line_ptr = menu_current_ptr->prev->prev;
+					mid_line_ptr = menu_current_ptr->prev;
+					mdl_line_ptr = menu_current_ptr;
+					btm_line_ptr = menu_current_ptr->next;
+				}
+				else
+				{
+					cursor_position = 1;
+					top_line_ptr = menu_current_ptr->prev;
+					mid_line_ptr = menu_current_ptr;
+					mdl_line_ptr = menu_current_ptr->next;
+					btm_line_ptr = &NONE_MENU;
+				}
 			}
 			else
 			{
-				// current element is top, next exists
 				cursor_position = 0;
 				top_line_ptr = menu_current_ptr;
-				mdl_line_ptr = menu_current_ptr->next;
+				mid_line_ptr = menu_current_ptr->next;
+				mdl_line_ptr = &NONE_MENU;
 				btm_line_ptr = &NONE_MENU;
 			}
 		}
@@ -331,30 +358,42 @@ void menu_enter(void)
 		{
 			if (menu_current_ptr->prev->prev)
 			{
-				// current element is btm, prev two exists
-				cursor_position = 2;
-				top_line_ptr = menu_current_ptr->prev->prev;
-				mdl_line_ptr = menu_current_ptr->prev;
-				btm_line_ptr = menu_current_ptr;
+				if (menu_current_ptr->prev->prev->prev)
+				{
+					cursor_position = 3;
+					top_line_ptr = menu_current_ptr->prev->prev->prev;
+					mid_line_ptr = menu_current_ptr->prev->prev;
+					mdl_line_ptr = menu_current_ptr->prev;
+					btm_line_ptr = menu_current_ptr;
+				}
+				else
+				{
+					cursor_position = 2;
+					top_line_ptr = menu_current_ptr->prev->prev;
+					mid_line_ptr = menu_current_ptr->prev;
+					mdl_line_ptr = menu_current_ptr;
+					btm_line_ptr = &NONE_MENU;
+				}
 			}
 			else
 			{
-				// current element is mdl, prev exists
 				cursor_position = 1;
 				top_line_ptr = menu_current_ptr->prev;
-				mdl_line_ptr = menu_current_ptr;
+				mid_line_ptr = menu_current_ptr;
+				mdl_line_ptr = &NONE_MENU;
 				btm_line_ptr = &NONE_MENU;
 			}
 		}
 		else
 		{
-			// current element is top, no next, no prev
 			cursor_position = 0;
 			top_line_ptr = menu_current_ptr;
+			mid_line_ptr = &NONE_MENU;
 			mdl_line_ptr = &NONE_MENU;
 			btm_line_ptr = &NONE_MENU;
 		}
 	}
+	// FIXME zbugowane jest troche wychodzi zawsze na wyzsze menu niz chce ;/
 	if (menu_current_ptr->function)
 	{
 		/* Run a function */
@@ -366,6 +405,7 @@ void menu_refresh(void)
 {
 	/* This code fragment is responsible for idle detection */
 	_tick_update();
+	ssd1306_Fill(White);
 
 	/* This fragment displays appropriate things based on mode */
 	if (_m_get_mode() == menu_browse_mode || _m_get_mode() == menu_data_edit_mode)

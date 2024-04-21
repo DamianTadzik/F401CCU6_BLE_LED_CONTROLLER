@@ -31,9 +31,9 @@ menu_t MM1 = {"AT commands"		, &MM2, NULL, &AM1, NULL, NULL};
 		menu_t AM1 = {"<-return"		, &AM2, NULL, &MM1, NULL, NULL};
 		menu_t AM2 = {"Cmd:"			, &AM3, &AM1, NULL, NULL, NULL};
 		menu_t AM3 = {"Send cmd"		, NULL, &AM2, NULL, NULL, NULL};
-menu_t MM2 = {"Exmpl var [-]"	, &MM3, &MM1, NULL, NULL, NULL};
-menu_t MM3 = {"Empty elem"		, &MM4,	&MM2, NULL, NULL, NULL};
-menu_t MM4 = {"Exmpl enum_t"	, &MM5, &MM3, NULL, NULL, NULL};
+menu_t MM2 = {"Exmpl var1"		, &MM3, &MM1, NULL, &D1, NULL};
+menu_t MM3 = {"Empty var2"		, &MM4,	&MM2, NULL, &D2, NULL};
+menu_t MM4 = {"Exmpl var3"		, &MM5, &MM3, NULL, &D3, NULL};
 menu_t MM5 = {"Expl mpt mnu"	, &MM6, &MM4, &EEM1, NULL, NULL};
 		menu_t EEM1 = {"<-return"		, NULL, NULL, &MM4, NULL, NULL};
 menu_t MM6 = {"Expl alm emp mn"	, NULL, &MM5, &EEM2, NULL, NULL};
@@ -53,7 +53,11 @@ menu_t MM6 = {"Expl alm emp mn"	, NULL, &MM5, &EEM2, NULL, NULL};
 extern int data;
 m_data_t D = {&data, 30, 90, 15, NULL}
  */
+int p1 = 0, p2 = 10, p3 = 100;
 
+m_data_t D1 = {&p1, 0, 16, 1};
+m_data_t D2 = {&p2, 0, 64, 4};
+m_data_t D3 = {&p3, 0, 128, 8};
 
 /**************************************** ENUM ****************************************/
 /**

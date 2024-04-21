@@ -559,3 +559,14 @@ void ssd1306_SetDisplayOn(const uint8_t on) {
 uint8_t ssd1306_GetDisplayOn() {
     return SSD1306.DisplayOn;
 }
+
+void my_ssd1306_DrawPointer(uint8_t x, uint8_t y, SSD1306_COLOR fill)
+{
+	SSD1306_COLOR k = Black;
+	ssd1306_Line(x+1, y, x+4, y+3, k);
+	ssd1306_Line(x+1, y+7, x+4, y+4, k);
+	ssd1306_Line(x, y+1, x+2, y+3, k);
+	ssd1306_Line(x, y+6, x+2, y+4, k);
+	ssd1306_Line(x+1, y+1, x+3, y+3, fill);
+	ssd1306_Line(x+1, y+6, x+3, y+4, fill);
+}
