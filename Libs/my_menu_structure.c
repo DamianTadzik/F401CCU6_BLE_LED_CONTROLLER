@@ -27,18 +27,28 @@
  * @info			Remember to declare menu_t elements in my_menu_structure.h
  */
 
-menu_t MM1 = {"AT commands"		, &MM2, NULL, &AM1, NULL, NULL};
-		menu_t AM1 = {"<-return"		, &AM2, NULL, &MM1, NULL, NULL};
-		menu_t AM2 = {"Cmd:"			, &AM3, &AM1, NULL, NULL, NULL};
-		menu_t AM3 = {"Send cmd"		, NULL, &AM2, NULL, NULL, NULL};
-menu_t MM2 = {"Exmpl var1"		, &MM3, &MM1, NULL, &D1, NULL};
-menu_t MM3 = {"Empty var2"		, &MM4,	&MM2, NULL, &D2, NULL};
-menu_t MM4 = {"Exmpl var3"		, &MM5, &MM3, NULL, &D3, NULL};
-menu_t MM5 = {"Expl mpt mnu"	, &MM6, &MM4, &EEM1, NULL, NULL};
-		menu_t EEM1 = {"<-return"		, NULL, NULL, &MM4, NULL, NULL};
-menu_t MM6 = {"Expl alm emp mn"	, NULL, &MM5, &EEM2, NULL, NULL};
-		menu_t EEM2 = {"<-return"		, &EEM3, NULL, &MM5, NULL, NULL};
-		menu_t EEM3 = {"Empty elem"		, NULL, &EEM2, NULL, NULL, NULL};
+menu_t MM1 = {"LEDs menu",		&MM2, NULL, &LM1, NULL, NULL};
+		menu_t LM1 = {"RETURN",		&LM2, NULL, &MM1, NULL, NULL};
+		menu_t LM2 = {"Mode:",		&LM3, &LM1, NULL, NULL, NULL};
+		menu_t LM3 = {"Settings?",	&LM4, &LM2, NULL, NULL, NULL};
+		menu_t LM4 = {"RGB",		NULL, &LM3, NULL, NULL, NULL};
+
+menu_t MM2 = {"Plot menu",		&MM3, &MM1, &PM1, NULL, NULL};
+		menu_t PM1 = {"RETURN",		&PM2, NULL, &MM2, NULL, NULL};
+		menu_t PM2 = {"Timescale:",	&PM3, &PM1, NULL, NULL, NULL};
+		menu_t PM3 = {"Sth",		&PM4, &PM2, NULL, NULL, NULL};
+		menu_t PM4 = {"Other shit",	NULL, &PM3, NULL, NULL, NULL};
+
+menu_t MM3 = {"Settings",		&MM4, &MM2, NULL, NULL, NULL};
+
+menu_t MM4 = {"Example A",		&MM5, &MM3, NULL, NULL, NULL};
+menu_t MM5 = {"Example B",		&MM6, &MM4, &EEM1, NULL, NULL};
+		menu_t EEM1 = {"RETURN",		NULL, NULL, &MM5, NULL, NULL};
+menu_t MM6 = {"Example C"		, NULL, &MM5, &EEM2, NULL, NULL};
+		menu_t EEM2 = {"RETURN",		&EEM3, NULL, &MM6, NULL, NULL};
+		menu_t EEM3 = {"Variable A",	&EEM4, &EEM2, NULL, &ED1, NULL};
+		menu_t EEM4 = {"Variable B",	&EEM5, &EEM3, NULL, &ED2, NULL};
+		menu_t EEM5 = {"Variable C",	NULL, &EEM4, NULL, &ED3, NULL};
 
 
 /**************************************** NUMERIC ****************************************/
@@ -54,10 +64,9 @@ extern int data;
 m_data_t D = {&data, 30, 90, 15, NULL}
  */
 int p1 = 0, p2 = 10, p3 = 100;
-
-m_data_t D1 = {&p1, 0, 16, 1};
-m_data_t D2 = {&p2, 0, 64, 4};
-m_data_t D3 = {&p3, 0, 128, 8};
+m_data_t ED1 = {&p1, 0, 16, 1};
+m_data_t ED2 = {&p2, 0, 64, 4};
+m_data_t ED3 = {&p3, 0, 128, 8};
 
 /**************************************** ENUM ****************************************/
 /**
