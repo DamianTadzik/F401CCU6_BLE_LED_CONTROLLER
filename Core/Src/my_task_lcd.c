@@ -38,7 +38,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
 	if (TIM4 == htim->Instance)
 	{
-		encoder_counter = (int32_t)(__HAL_TIM_GET_COUNTER(htim) / 4);
+		encoder_counter = (int32_t)(__HAL_TIM_GET_COUNTER(htim)/4);
 		if (encoder_counter > last_encoder_counter)
 		{
 			menu_next();
