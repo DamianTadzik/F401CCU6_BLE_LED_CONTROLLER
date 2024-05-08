@@ -32,6 +32,11 @@ void StartLedTask(void *argument)
 			RGB_SWEEP_ALPHA(223, spd);
 			RGB_SWEEP_ALPHA(31, spd);
 			break;
+		case my_leds_rainbow_run:
+			static uint8_t pos = 0;
+			RAINBOW_RUN(16, ++pos);
+			if (pos == 77) pos = 0;
+			break;
 		default:
 			ARGB_Clear();
 			UPDT_LED(200);

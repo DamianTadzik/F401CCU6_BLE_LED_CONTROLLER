@@ -130,6 +130,7 @@ const char * const leds_mode_aliases[] =
 		[my_leds_default] = "Defa",
 		[my_leds_manual] = "Manu",
 		[my_leds_auto] = "Auto",
+		[my_leds_rainbow_run] = "Rainbow",
 };
 m_data_t LD1 = {(int*)&leds_mode, 0, 2, 1, leds_mode_aliases};
 
