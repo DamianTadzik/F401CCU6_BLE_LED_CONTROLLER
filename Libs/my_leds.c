@@ -177,16 +177,3 @@ void RAINBOW_RUN(uint8_t spd, uint8_t pos)
 	UPDT_LED(spd);
 }
 
-//void RUN(uint8_t spd)
-//{
-//	for (int i = 0; i < 40; i++)
-//	{
-//		ARGB_SetRGB(i, 0, 0, 255);
-//		if (i > 2)
-//		{
-//			ARGB_SetRGB(i - 3, 255, 0, 0);
-//		}
-//		UPDT_LED();
-//		osDelay(spd);
-//	}
-//}

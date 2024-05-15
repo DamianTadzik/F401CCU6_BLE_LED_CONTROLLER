@@ -11,7 +11,10 @@
 #include "cmsis_os2.h"
 
 extern my_leds_mode_t leds_mode;
+
 extern int r_comp, g_comp, b_comp;
+
+int speed = 16;
 
 void StartLedTask(void *argument)
 {
@@ -34,7 +37,7 @@ void StartLedTask(void *argument)
 			break;
 		case my_leds_rainbow_run:
 			static uint8_t pos = 0;
-			RAINBOW_RUN(16, ++pos);
+			RAINBOW_RUN(speed, ++pos);
 			if (pos == 77) pos = 0;
 			break;
 		default:

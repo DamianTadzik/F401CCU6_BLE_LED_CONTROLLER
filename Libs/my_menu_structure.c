@@ -32,7 +32,8 @@ menu_t MM1 = {"LEDs menu",		&MM2, NULL, &LM1, NULL, NULL};
 		menu_t LM2 = {"Mode:",		&LM3, &LM1, NULL, &LD1, NULL};
 		menu_t LM3 = {"Red",		&LM4, &LM2, NULL, &LD2, NULL};
 		menu_t LM4 = {"Green",		&LM5, &LM3, NULL, &LD3, NULL};
-		menu_t LM5 = {"Blue",		NULL, &LM4, NULL, &LD4, NULL};
+		menu_t LM5 = {"Blue",		&LM6, &LM4, NULL, &LD4, NULL};
+		menu_t LM6 = {"Speed",		NULL, &LM5, NULL, &LD5, NULL};
 
 menu_t MM2 = {"Plot menu",		&MM3, &MM1, &PM1, NULL, NULL};
 		menu_t PM1 = {"RETURN",		&PM2, NULL, &MM2, NULL, NULL};
@@ -69,6 +70,9 @@ extern int r_comp, g_comp, b_comp;
 m_data_t LD2 = {&r_comp, 0, 255, 2};
 m_data_t LD3 = {&g_comp, 0, 255, 2};
 m_data_t LD4 = {&b_comp, 0, 255, 2};
+
+extern int speed;
+m_data_t LD5 = {&speed, 0, 32, 1};
 
 int p1 = 0, p2 = 10, p3 = 100;
 m_data_t ED1 = {&p1, 0, 16, 1};
@@ -132,7 +136,7 @@ const char * const leds_mode_aliases[] =
 		[my_leds_auto] = "Auto",
 		[my_leds_rainbow_run] = "Rainbow",
 };
-m_data_t LD1 = {(int*)&leds_mode, 0, 2, 1, leds_mode_aliases};
+m_data_t LD1 = {(int*)&leds_mode, 0, 3, 1, leds_mode_aliases};
 
 //extern hm_state_t hm_state;
 //

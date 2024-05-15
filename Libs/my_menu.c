@@ -87,7 +87,7 @@ static void _my_draw_menu(void)
 
 static void _my_draw_data(void)
 {
-	const uint8_t characters = 4;
+	const uint8_t characters = 7;
 	char buf[characters];
 
 	if (top_line_ptr->data)
