@@ -33,7 +33,9 @@ menu_t MM1 = {"LEDs menu",		&MM2, NULL, &LM1, NULL, NULL};
 		menu_t LM3 = {"Red",		&LM4, &LM2, NULL, &LD2, NULL};
 		menu_t LM4 = {"Green",		&LM5, &LM3, NULL, &LD3, NULL};
 		menu_t LM5 = {"Blue",		&LM6, &LM4, NULL, &LD4, NULL};
-		menu_t LM6 = {"Speed",		NULL, &LM5, NULL, &LD5, NULL};
+		menu_t LM6 = {"Speed",		&LM7, &LM5, NULL, &LD5, NULL};
+		menu_t LM7 = {"Brightness",	&LM8, &LM6, NULL, &LD6, NULL};
+		menu_t LM8 = {"No rainbws",	NULL, &LM7, NULL, &LD7, NULL};
 
 menu_t MM2 = {"Plot menu",		&MM3, &MM1, &PM1, NULL, NULL};
 		menu_t PM1 = {"RETURN",		&PM2, NULL, &MM2, NULL, NULL};
@@ -73,6 +75,12 @@ m_data_t LD4 = {&b_comp, 0, 255, 2};
 
 extern int speed;
 m_data_t LD5 = {&speed, 0, 32, 1};
+
+extern int brightness;
+m_data_t LD6 = {&brightness, 0, 255, 8};
+
+extern int num_of_rainbows;
+m_data_t LD7 = {&num_of_rainbows, 1, 8, 1};
 
 int p1 = 0, p2 = 10, p3 = 100;
 m_data_t ED1 = {&p1, 0, 16, 1};

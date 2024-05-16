@@ -24,7 +24,7 @@ typedef enum {
 
 void UPDT_LED(uint32_t delay);
 void RGB_SWEEP_ALPHA(uint8_t alpha, uint8_t speed);
-void RAINBOW_RUN(uint8_t spd, uint8_t pos);
+void RAINBOW_RUN(uint8_t spd, uint8_t pos, uint8_t n_of_rainbows);
 
 
 #endif /* MY_LEDS_H_ */

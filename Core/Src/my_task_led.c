@@ -16,6 +16,10 @@ extern int r_comp, g_comp, b_comp;
 
 int speed = 16;
 
+int brightness = 255;
+
+int num_of_rainbows = 1;
+
 void StartLedTask(void *argument)
 {
 	ARGB_Init();
@@ -31,13 +35,11 @@ void StartLedTask(void *argument)
 			UPDT_LED(100);
 			break;
 		case my_leds_auto:
-			uint8_t spd = rand() % 32;
-			RGB_SWEEP_ALPHA(223, spd);
-			RGB_SWEEP_ALPHA(31, spd);
+			RGB_SWEEP_ALPHA(223, speed);
 			break;
 		case my_leds_rainbow_run:
 			static uint8_t pos = 0;
-			RAINBOW_RUN(speed, ++pos);
+			RAINBOW_RUN(speed, ++pos, num_of_rainbows);
 			if (pos == 77) pos = 0;
 			break;
 		default:
@@ -45,5 +47,6 @@ void StartLedTask(void *argument)
 			UPDT_LED(200);
 			break;
 		}
+		ARGB_SetBrightness(brightness);
 	}
 }

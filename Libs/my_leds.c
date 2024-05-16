@@ -165,14 +165,23 @@ const uint8_t e_to_x_sq_78vals[] = {
     0,
 };
 
-void RAINBOW_RUN(uint8_t spd, uint8_t pos)
+void RAINBOW_RUN(uint8_t spd, uint8_t pos, uint8_t n_of_rainbows)
 {
-	for (int n = 0; n < 78; n++)
+	uint8_t nor = saturate(n_of_rainbows, 1, 8);
+
+	for (int n = 0; n < (78 / nor); n++)
 	{
-		uint8_t r = e_to_x_sq_78vals[(n+pos+0)%78];
-		uint8_t g = e_to_x_sq_78vals[(n+pos+26)%78];
-		uint8_t b = e_to_x_sq_78vals[(n+pos+52)%78];
-		ARGB_SetRGB(n, r, g, b);
+		uint8_t r = e_to_x_sq_78vals[(nor*n+pos+0)%78];
+		uint8_t g = e_to_x_sq_78vals[(nor*n+pos+26)%78];
+		uint8_t b = e_to_x_sq_78vals[(nor*n+pos+52)%78];
+		for (int set = 0; set < nor; set++)
+		{
+			ARGB_SetRGB(n + set * (78 / nor), r, g, b);
+		}
+		if (n < 78 % n_of_rainbows)
+		{
+			ARGB_SetRGB(n + nor * (78 / nor), r, g, b);
+		}
 	}
 	UPDT_LED(spd);
 }
