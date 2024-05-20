@@ -46,6 +46,21 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
 
+osMutexId_t mutexI2C1Handle;
+const osMutexAttr_t mutexI2C1_attributes = {
+		.name = "I2C1 Mutex",
+		.attr_bits = 0,
+		.cb_mem = NULL,
+		.cb_size = 0,
+};
+
+osThreadId_t measureTaskHandle;
+const osThreadAttr_t measureTask_attributes = {
+		.name = "measureTask",
+		.stack_size = 128 * 4,
+		.priority = (osPriority_t) osPriorityNormal,
+};
+
 osThreadId_t lcdTaskHandle;
 const osThreadAttr_t lcdTask_attributes = {
 		.name = "lcdTask",
@@ -73,6 +88,7 @@ const osThreadAttr_t defaultTask_attributes = {
 /* USER CODE BEGIN FunctionPrototypes */
 extern void StartLedTask(void *argument);
 extern void StartLCDTask(void *argument);
+extern void StartMeasureTask(void *argument);
 
 /* USER CODE END FunctionPrototypes */
 
@@ -92,6 +108,7 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
+	mutexI2C1Handle = osMutexNew(&mutexI2C1_attributes);
   /* USER CODE END RTOS_MUTEX */
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
@@ -114,6 +131,8 @@ void MX_FREERTOS_Init(void) {
   /* add threads, ... */
   ledTaskHandle = osThreadNew(StartLedTask, NULL, &ledTask_attributes);
   lcdTaskHandle = osThreadNew(StartLCDTask, NULL, &lcdTask_attributes);
+  measureTaskHandle = osThreadNew(StartMeasureTask, NULL, &measureTask_attributes);
+
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */

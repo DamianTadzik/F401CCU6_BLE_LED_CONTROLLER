@@ -9,6 +9,8 @@
 #include "cmsis_os2.h"
 #include "my_menu.h"
 
+extern osMutexId_t mutexI2C1Handle;
+
 /**
  * TIM4 set in combined encoder mode, filtering set to maximum value 0xF
  * TIM2 used in LED
@@ -90,11 +92,11 @@ void StartLCDTask(void *argument)
 
 	while (1)
 	{
-		menu_refresh();
+		if (osMutexAcquire(mutexI2C1Handle, 20) == osOK)
+		{
+			menu_refresh();
+			osMutexRelease(mutexI2C1Handle);
+		}
 		osDelay(100);
-
-		// Check if user interacted within last N seconds
-		// if so then menu_refresh();
-		// else menu_plots();
 	}
 }
